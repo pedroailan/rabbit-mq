@@ -1,3 +1,4 @@
+using Prometheus;
 using RabbitMQ_Consumer.API;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -22,7 +23,15 @@ if (app.Environment.IsDevelopment())
 
 app.UseHttpsRedirection();
 
+app.UseRouting();
+
 app.UseAuthorization();
+
+// Configurar o middleware para expor métricas no endpoint "/metrics"
+app.UseMetricServer();
+
+// Incluir métricas de requisição HTTP
+app.UseHttpMetrics();
 
 app.MapControllers();
 
