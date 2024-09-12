@@ -21,9 +21,9 @@ namespace RabbitMQ_Producer.API
                                  arguments: null);
         }
 
-        public void Notification(string message)
+        public void Notification(Notification notification)
         {
-            var body = Encoding.UTF8.GetBytes(message);
+            var body = Encoding.UTF8.GetBytes(notification.Message);
 
             _channel.BasicPublish(exchange: "",
                                  routingKey: "api_queue",
