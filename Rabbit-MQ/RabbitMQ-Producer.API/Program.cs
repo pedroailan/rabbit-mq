@@ -1,5 +1,5 @@
-using RabbitMQ_Producer.API;
 using Prometheus;
+using RabbitMQ_Producer.API;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -11,6 +11,7 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
 builder.Services.AddSingleton<Producer>();
+builder.Services.AddHostedService<Job>();
 
 var app = builder.Build();
 

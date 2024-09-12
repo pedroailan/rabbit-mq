@@ -1,8 +1,8 @@
 ﻿using Commons;
-using Prometheus;
 using RabbitMQ.Client;
 using RabbitMQ.Client.Events;
 using System.Text;
+using System.Text.Json;
 
 namespace RabbitMQ_Consumer.API
 {
@@ -29,8 +29,18 @@ namespace RabbitMQ_Consumer.API
             consumer.Received += (model, ea) =>
             {
                 var body = ea.Body.ToArray();
-                var message = Encoding.UTF8.GetString(body);
-                Console.WriteLine(" [x] Received {0}", message);
+                var str = Encoding.UTF8.GetString(body);
+
+                Notification message = JsonSerializer.Deserialize<Notification>(str);
+
+                // Tempo atual (recebimento da mensagem)
+                long receivedTimestamp = DateTimeOffset.UtcNow.ToUnixTimeMilliseconds();
+
+                // Calcular a diferença entre o envio e o recebimento
+                long latency = receivedTimestamp - message.Timestamp;
+
+                Console.WriteLine(" [x] Received {0}", message.Message);
+                Console.WriteLine($"Tempo total entre produção e consumo: {latency} ms");
             };
             _channel.BasicConsume(queue: "api_queue",
                                  autoAck: true,

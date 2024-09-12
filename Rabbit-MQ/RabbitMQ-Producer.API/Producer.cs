@@ -1,6 +1,7 @@
 ﻿using Commons;
 using RabbitMQ.Client;
 using System.Text;
+using System.Text.Json;
 
 namespace RabbitMQ_Producer.API
 {
@@ -23,7 +24,14 @@ namespace RabbitMQ_Producer.API
 
         public void Notification(Notification notification)
         {
-            var body = Encoding.UTF8.GetBytes(notification.Message);
+            var message = new
+            {
+                Content = notification.Message,
+                Timestamp = DateTimeOffset.UtcNow.ToUnixTimeMilliseconds()
+            };
+
+            var messageBody = JsonSerializer.Serialize(message);
+            var body = Encoding.UTF8.GetBytes(messageBody);
 
             _channel.BasicPublish(exchange: "",
                                  routingKey: "api_queue",

@@ -8,11 +8,11 @@ namespace RabbitMQ_Producer.API.Controllers
     {
         private readonly Producer _producer = producer;
 
-        [HttpPost("send")]
-        public IActionResult SendMessage([FromBody] Notification notification)
-        {
-            _producer.Notification(notification);
-            return Ok("Message sent to RabbitMQ");
-        }
+        //[HttpPost("send")]
+        //public IActionResult SendMessage([FromBody] Notification notification)
+        //{
+        //    _producer.Notification(notification);
+        //    return Ok("Message sent to RabbitMQ");
+        //}
     }
 }
