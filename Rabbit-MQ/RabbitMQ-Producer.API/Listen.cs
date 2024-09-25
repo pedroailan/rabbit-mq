@@ -1,34 +1,32 @@
-﻿using Commons;
+﻿using RabbitMQ.Client.Events;
 using RabbitMQ.Client;
-using RabbitMQ.Client.Events;
+using Commons;
 using System.Text;
 using System.Text.Json;
 
-namespace RabbitMQ_Consumer.API
+namespace RabbitMQ_Producer.API
 {
-    public class Consumer
+    public class Listen
     {
         private readonly IConnection _connection;
         private readonly IModel _channel;
-        private readonly Response _response;
 
-        public Consumer(IConfiguration configuration, Response response)
+        public Listen(IConfiguration configuration)
         {
             ConnectionFactory factory = Builder.Build(configuration);
             _connection = factory.CreateConnection();
             _channel = _connection.CreateModel();
-            _channel.QueueDeclare(queue: "api_queue",
+            _channel.QueueDeclare(queue: "api_queue_response",
                                  durable: false,
                                  exclusive: false,
                                  autoDelete: false,
                                  arguments: null);
-            _response = response;
         }
 
         public void StartConsuming()
         {
             var consumer = new EventingBasicConsumer(_channel);
-            consumer.Received +=  (model, ea)  =>
+            consumer.Received += (model, ea) =>
             {
                 var body = ea.Body.ToArray();
                 var str = Encoding.UTF8.GetString(body);
@@ -41,16 +39,14 @@ namespace RabbitMQ_Consumer.API
                 // Calcular a diferença entre o envio e o recebimento
                 long latency = message.CalculateTime(receivedTimestamp);
 
-                _response.Notification(message);
-                Console.WriteLine("\n");
-                Console.WriteLine($"Tempo total entre produção e consumo: {latency} ms");
+                Console.WriteLine($"Tempo total entre produção, consumo e resposta: {latency} ms");
             };
-            _channel.BasicConsume(queue: "api_queue",
+            _channel.BasicConsume(queue: "api_queue_response",
                                  autoAck: true,
                                  consumer: consumer);
         }
 
-        ~Consumer()
+        ~Listen()
         {
             _channel?.Close();
             _connection?.Close();

@@ -11,6 +11,7 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
 builder.Services.AddSingleton<Producer>();
+builder.Services.AddSingleton<Listen>();
 builder.Services.AddHostedService<Job>();
 
 var app = builder.Build();
@@ -35,5 +36,8 @@ app.UseMetricServer();
 app.UseHttpMetrics();
 
 app.MapControllers();
+
+var listen = app.Services.GetRequiredService<Listen>();
+listen.StartConsuming();
 
 app.Run();

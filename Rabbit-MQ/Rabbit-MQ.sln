@@ -3,11 +3,15 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.10.35201.131
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RabbitMQ-Consumer.API", "RabbitMQ-Consumer.API\RabbitMQ-Consumer.API.csproj", "{130EC71B-82FB-42FF-95E3-2EEBF487897C}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RabbitMQ-Consumer.API", "RabbitMQ-Consumer.API\RabbitMQ-Consumer.API.csproj", "{130EC71B-82FB-42FF-95E3-2EEBF487897C}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RabbitMQ-Producer.API", "RabbitMQ-Producer.API\RabbitMQ-Producer.API.csproj", "{5168D067-BF8B-4F04-A86D-6B4FA5C82E4A}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RabbitMQ-Producer.API", "RabbitMQ-Producer.API\RabbitMQ-Producer.API.csproj", "{5168D067-BF8B-4F04-A86D-6B4FA5C82E4A}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RabbitMQ-Commons", "Commons\RabbitMQ-Commons.csproj", "{8B89D714-5A27-4D11-B1F8-1AC728813FBB}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RabbitMQ-Commons", "Commons\RabbitMQ-Commons.csproj", "{8B89D714-5A27-4D11-B1F8-1AC728813FBB}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PgNotify-Consumer.API", "..\..\..\Pg\Pg-Notify\PgNotify-Consumer.API\PgNotify-Consumer.API.csproj", "{1CFEB910-4A91-4B18-BA98-5FD1701A4453}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PgNotify-Producer.API", "..\..\..\Pg\Pg-Notify\PgNotify-Producer.API\PgNotify-Producer.API.csproj", "{A6ED91DE-497A-4AC1-AC47-961823B3ED0C}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -27,6 +31,14 @@ Global
 		{8B89D714-5A27-4D11-B1F8-1AC728813FBB}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{8B89D714-5A27-4D11-B1F8-1AC728813FBB}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{8B89D714-5A27-4D11-B1F8-1AC728813FBB}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1CFEB910-4A91-4B18-BA98-5FD1701A4453}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1CFEB910-4A91-4B18-BA98-5FD1701A4453}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1CFEB910-4A91-4B18-BA98-5FD1701A4453}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1CFEB910-4A91-4B18-BA98-5FD1701A4453}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A6ED91DE-497A-4AC1-AC47-961823B3ED0C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A6ED91DE-497A-4AC1-AC47-961823B3ED0C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A6ED91DE-497A-4AC1-AC47-961823B3ED0C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A6ED91DE-497A-4AC1-AC47-961823B3ED0C}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

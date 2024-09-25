@@ -11,6 +11,7 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
 builder.Services.AddSingleton<Consumer>();
+builder.Services.AddSingleton<Response>();
 
 var app = builder.Build();
 

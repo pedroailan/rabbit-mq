@@ -1,21 +1,21 @@
-﻿using Commons;
-using RabbitMQ.Client;
-using System.Text;
+﻿using RabbitMQ.Client;
 using System.Text.Json;
+using System.Text;
+using Commons;
 
-namespace RabbitMQ_Producer.API
+namespace RabbitMQ_Consumer.API
 {
-    public class Producer : IDisposable
+    public class Response
     {
         private readonly IConnection _connection;
         private readonly IModel _channel;
 
-        public Producer(IConfiguration configuration)
+        public Response(IConfiguration configuration)
         {
             ConnectionFactory factory = Builder.Build(configuration);
             _connection = factory.CreateConnection();
             _channel = _connection.CreateModel();
-            _channel.QueueDeclare(queue: "api_queue",
+            _channel.QueueDeclare(queue: "api_queue_response",
                                  durable: false,
                                  exclusive: false,
                                  autoDelete: false,
@@ -28,17 +28,12 @@ namespace RabbitMQ_Producer.API
             var body = Encoding.UTF8.GetBytes(messageBody);
 
             _channel.BasicPublish(exchange: "",
-                                 routingKey: "api_queue",
+                                 routingKey: "api_queue_response",
                                  basicProperties: null,
                                  body: body);
         }
 
-        public void Dispose()
-        {
-            GC.SuppressFinalize(this);
-        }
-
-        ~Producer()
+        ~Response()
         {
             _channel?.Close();
             _connection?.Close();

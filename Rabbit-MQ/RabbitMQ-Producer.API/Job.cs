@@ -1,4 +1,6 @@
-﻿namespace RabbitMQ_Producer.API
+﻿using Commons;
+
+namespace RabbitMQ_Producer.API
 {
     public class Job(Producer producer) : BackgroundService
     {
@@ -8,9 +10,9 @@
         {
             while (!stoppingToken.IsCancellationRequested)
             {
-                Console.WriteLine("Starting...");
+                Console.WriteLine("\n");
                 _producer.Notification(new Notification());
-                await Task.Delay(TimeSpan.FromSeconds(5), stoppingToken);
+                await Task.Delay(Notify.Interval, stoppingToken);
             }
         }
     }
