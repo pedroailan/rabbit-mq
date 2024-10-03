@@ -10,8 +10,9 @@ namespace RabbitMQ_Producer.API
     {
         private readonly IConnection _connection;
         private readonly IModel _channel;
+        private readonly ILogger<Listen> _logger;
 
-        public Listen(IConfiguration configuration)
+        public Listen(IConfiguration configuration, ILogger<Listen> logger)
         {
             ConnectionFactory factory = Builder.Build(configuration);
             _connection = factory.CreateConnection();
@@ -21,6 +22,7 @@ namespace RabbitMQ_Producer.API
                                  exclusive: false,
                                  autoDelete: false,
                                  arguments: null);
+            _logger = logger;
         }
 
         public void StartConsuming()
@@ -39,7 +41,8 @@ namespace RabbitMQ_Producer.API
                 // Calcular a diferença entre o envio e o recebimento
                 long latency = message.CalculateTime(receivedTimestamp);
 
-                Console.WriteLine($"Tempo total entre produção, consumo e resposta: {latency} ms");
+
+                _logger.LogInformation("{0};{1}", DateTime.Now.ToString("HH:mm:ss:fff"), latency);
             };
             _channel.BasicConsume(queue: "api_queue_response",
                                  autoAck: true,

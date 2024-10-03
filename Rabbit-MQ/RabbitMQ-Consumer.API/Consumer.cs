@@ -11,8 +11,9 @@ namespace RabbitMQ_Consumer.API
         private readonly IConnection _connection;
         private readonly IModel _channel;
         private readonly Response _response;
+        private readonly ILogger<Consumer> _logger;
 
-        public Consumer(IConfiguration configuration, Response response)
+        public Consumer(IConfiguration configuration, Response response, ILogger<Consumer> logger)
         {
             ConnectionFactory factory = Builder.Build(configuration);
             _connection = factory.CreateConnection();
@@ -23,6 +24,7 @@ namespace RabbitMQ_Consumer.API
                                  autoDelete: false,
                                  arguments: null);
             _response = response;
+            _logger = logger;
         }
 
         public void StartConsuming()
@@ -42,8 +44,7 @@ namespace RabbitMQ_Consumer.API
                 long latency = message.CalculateTime(receivedTimestamp);
 
                 _response.Notification(message);
-                Console.WriteLine("\n");
-                Console.WriteLine($"Tempo total entre produção e consumo: {latency} ms");
+                _logger.LogInformation("{0};{1}", DateTime.Now.ToString("HH:mm:ss:fff"), latency);
             };
             _channel.BasicConsume(queue: "api_queue",
                                  autoAck: true,

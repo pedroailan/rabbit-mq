@@ -1,7 +1,9 @@
 using Prometheus;
 using RabbitMQ_Producer.API;
-
+using Commons;
 var builder = WebApplication.CreateBuilder(args);
+
+builder.Logging.AddLogs();
 
 // Add services to the container.
 
