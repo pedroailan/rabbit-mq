@@ -396,3 +396,5 @@ FodyWeavers.xsd
 
 # JetBrains Rider
 *.sln.iml
+/Rabbit-MQ/RabbitMQ-Consumer.API/Metrics/output20241002.csv
+/Rabbit-MQ/RabbitMQ-Producer.API/Metrics/output20241002.csv
